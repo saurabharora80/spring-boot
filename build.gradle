@@ -1,0 +1,58 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'gs-spring-boot'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencies {
+    // tag::jetty[]
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+    compile("org.thymeleaf.extras:thymeleaf-extras-tiles2-spring4:2.1.1.RELEASE")
+
+    // end::jetty[]
+    // tag::actuator[]
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    // end::actuator[]
+    testCompile("junit:junit")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.seleniumhq.selenium:selenium-java:2.45.0")
+    /**
+     * when using java 7
+     * testCompile("org.assertj:assertj-core:2.0.0")
+     */
+
+    testCompile("org.assertj:assertj-core:3.0.0")
+    testCompile("org.fluentlenium:fluentlenium-assertj:0.10.3")
+    //testCompile("com.github.detro:phantomjsdriver:1.2.0")
+
+}
+
+/*task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}*/
+
